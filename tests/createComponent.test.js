@@ -1,10 +1,16 @@
 "use strict";
 
 const fs = require("fs");
-
+const kleur = require("kleur");
 const { createComponent } = require("../createComponent");
+const { deleteFiles } = require("./scripts/deleteFiles");
 
 const DEFAULT_PATH = "tests/path";
+
+beforeAll(() => {
+  console.log(kleur.bgRed().bold(" 🔥 Deleting test files and folders 🔥 "));
+  deleteFiles(DEFAULT_PATH); 
+});
 
 test("JS component creation with styles", async() => {
   const componentPath = `${ DEFAULT_PATH }/testComponent1`;

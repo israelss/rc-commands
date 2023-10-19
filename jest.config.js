@@ -2,5 +2,6 @@
 
 module.exports = {
   testEnvironment: "node",
-  testMatch: [ "**/tests/**/*.test.js" ]
+  testMatch: [ "<rootDir>/tests/**/*.test.js" ],
+  watchPathIgnorePatterns: ["<rootDir>/tests/path"]
 };

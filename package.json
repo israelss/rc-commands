@@ -5,10 +5,10 @@
   "main": "cli.js",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "postinstall": "node ./terminal/postinstall.js",
     "postuninstall": "node ./terminal/postuninstall.js",
-    "eslint:fix": "eslint --fix .",
-    "pretest": "node ./tests/scripts/deleteFiles.js"
+    "eslint:fix": "eslint --fix ."
   },
   "bin": {
     "rc": "./cli.js"

@@ -12,14 +12,14 @@ beforeAll(() => {
   deleteFiles(DEFAULT_PATH); 
 });
 
-test("JS component creation with styles", async() => {
+test("JS component creation with default styles", () => {
   const componentPath = `${ DEFAULT_PATH }/testComponent1`;
 
   const fileType = "js";
 
   const createStyles = true;
 
-  await createComponent(componentPath, fileType, createStyles);
+  createComponent(componentPath, fileType, createStyles, "css");
 
   expect(fs.existsSync(componentPath)).toBeTruthy();
 
@@ -54,14 +54,14 @@ test("JS component creation without styles", () => {
   expect(styleFileExists).toBeFalsy();
 });
 
-test("TS component creation with styles", async() => {
+test("TS component creation with default styles", () => {
   const componentPath = `${ DEFAULT_PATH }/testComponent3`;
 
   const fileType = "ts";
 
   const createStyles = true;
 
-  await createComponent(componentPath, fileType, createStyles);
+  createComponent(componentPath, fileType, createStyles, "css");
 
   expect(fs.existsSync(componentPath)).toBeTruthy();
 

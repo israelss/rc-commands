@@ -3,7 +3,6 @@
 "use strict";
 
 const { Command } = require("commander");
-
 const { createComponent } = require("./createComponent");
 
 const program = new Command("rc-commands");
@@ -15,10 +14,10 @@ program.version("0.0.4");
  * @param {string} commandName
  * @param {string} description
  * @param {string[]} aliases
- * @param {"js" | "ts"} fileType
+ * @param {"js" | "ts"} extension
  * @returns void
  */
-function createComponentCommand(commandName, description, aliases, fileType) {
+function createComponentCommand(commandName, description, aliases, extension) {
   const command = program.command(commandName);
   
   if (aliases && aliases.length > 0) {
@@ -27,21 +26,33 @@ function createComponentCommand(commandName, description, aliases, fileType) {
 
   command
     .description(description)
-    .option("--no-styles", "Skip creation of style file (css)")
+    .option("--no-styles", "Skip creation of style file")
     .option("--less","Choose less as style file")
     .option("--sass", "Choose sass as style file")
+    .option("--destructureProps", "Should destructure props on Component declaration")
+    .option("-b", "Boolean props to include. Optional props should have a '?' at the end")
+    .option("-n", "Number props to include. Optional props should have a '?' at the end")
+    .option("-s", "String props to include. Optional props should have a '?' at the end")
+    .option("-u", "Unknown props to include. Optional props should have a '?' at the end")
     .action((componentPath, options) => {
-      const createStyles = options.styles;
-
-      const styleTypeMap = {
-        less: "less",
-        sass: "sass",
-        default: "css"
-      };
-
-      const styleType = options.less ? "less" : options.sass ? "sass" : "default";
+      const styleType = options.less ? "less" : options.sass ? "sass" : "css";
       
-      createComponent(componentPath, fileType, createStyles, styleTypeMap[styleType]);
+      const componentOptions = {
+        extension,
+        styles: {
+          create: options.styles,
+          type: styleType,
+        },
+        props: {
+          destructure: options.destructureProps,
+          booleanProps: options.b,
+          numberProps: options.n,
+          stringProps: options.s,
+          unknownProps: options.u,
+        }
+      };
+    
+      createComponent(componentPath, componentOptions);
     });
 }
 

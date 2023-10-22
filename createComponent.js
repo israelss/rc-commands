@@ -9,31 +9,61 @@ const kleur = require("kleur");
 const { jsTemplate, tsTemplate } = require("./templates");
 
 /**
+ * @typedef {"css" | "sass" | "less"} StyleType
+ */
+
+/**
+ * @typedef {Object} ComponentStyleOptions
+ * @property {boolean} create
+ * @property {StyleType} type
+ */
+
+/**
+ * @typedef {Object} ComponentPropsOptions
+ * @property {boolean} destructure
+ * @property {string[]} booleanProps
+ * @property {string[]} numberProps
+ * @property {string[]} stringProps
+ * @property {string[]} unknownProps
+ */
+
+/**
+ * @typedef {Object} ComponentOptions
+ * @property {"js" | "ts"} extension
+ * @property {ComponentStyleOptions} styles
+ * @property {ComponentPropsOptions} props
+ */
+
+/**
  *
  * Creates a component file as `componentName`.`type`
  * Creates a test for the created component
  * Creates a style file if `createStyles` is true
  *
  * @param {string} componentPath
- * @param {"js" | "ts"} type
- * @param {boolean} createStyles
- * @param {"css" | "sass" | "less"} styleType
+ * @param {ComponentOptions} componentOptions
  * @returns void
  */
-function createComponent(componentPath, type, createStyles, styleType) {
+function createComponent(componentPath, componentOptions) {
   try {
     const folder = componentPath;
 
     const componentName = path.basename(componentPath).charAt(0).toUpperCase() + path.basename(componentPath).slice(1);
 
+    const {
+      extension,
+      props,
+      styles: { create: createStyles, type: styleType }
+    } = componentOptions;
+
     const templates = {
-      ts: tsTemplate(componentName, styleType),
-      js: jsTemplate(componentName, styleType),
+      ts: tsTemplate(componentName, props, createStyles && styleType),
+      js: jsTemplate(componentName, props, createStyles && styleType),
     };
 
     const files = [
-      { name: `${ componentName }.${ type === "ts" ? "tsx" : "jsx" }`, content: templates[type].component },
-      { name: `${ componentName }.spec.${ type === "ts" ? "tsx" : "jsx" }`, content: templates[type].spec },
+      { name: `${ componentName }.${ extension === "ts" ? "tsx" : "jsx" }`, content: templates[extension].component },
+      { name: `${ componentName }.spec.${ extension === "ts" ? "tsx" : "jsx" }`, content: templates[extension].spec },
     ];
 
     if (createStyles) {
@@ -53,8 +83,7 @@ function createComponent(componentPath, type, createStyles, styleType) {
       }
     });
 
-    console.log(kleur.bgBlue().white("\nFolder and files created successfully! 🚀🚀🚀"));
-    console.log("");
+    console.log(`\n${ kleur.bgBlue().bold().white(" Folder and files created successfully! 🚀🚀🚀 ") }`);
   } catch (error) {
     console.error(kleur.red().bold().underline(`Something went wrong: ${ error }`));
   }

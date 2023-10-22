@@ -30,10 +30,10 @@ function createComponentCommand(commandName, description, aliases, extension) {
     .option("--less","Choose less as style file")
     .option("--sass", "Choose sass as style file")
     .option("--destructureProps", "Should destructure props on Component declaration")
-    .option("-b", "Boolean props to include. Optional props should have a '?' at the end")
-    .option("-n", "Number props to include. Optional props should have a '?' at the end")
-    .option("-s", "String props to include. Optional props should have a '?' at the end")
-    .option("-u", "Unknown props to include. Optional props should have a '?' at the end")
+    .option("-b <booleanProps...>", "Boolean props to include. Optional props should have a '?' at the end", [])
+    .option("-n <numberProps...>", "Number props to include. Optional props should have a '?' at the end", [])
+    .option("-s <stringProps...>", "String props to include. Optional props should have a '?' at the end", [])
+    .option("-u <unknownProps...>", "Unknown props to include. Optional props should have a '?' at the end", [])
     .action((componentPath, options) => {
       const styleType = options.less ? "less" : options.sass ? "sass" : "css";
       

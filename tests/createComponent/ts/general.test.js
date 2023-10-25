@@ -22,6 +22,7 @@ describe("TS Components creation", () => {
         numberProps: [],
         stringProps: [],
         unknownProps: [],
+        functionProps: [],
       }
     };
    

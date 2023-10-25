@@ -22,6 +22,7 @@ describe("JS Components creation",  () => {
         numberProps: [],
         stringProps: [],
         unknownProps: [],
+        functionProps: [],
       }
     };
 

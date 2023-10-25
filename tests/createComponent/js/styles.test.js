@@ -23,6 +23,7 @@ describe("JS Components creation",  () => {
           numberProps: [],
           stringProps: [],
           unknownProps: [],
+          functionProps: [],
         }
       };
 
@@ -74,6 +75,7 @@ describe('<TestComponent/>', () => {
           numberProps: [],
           stringProps: [],
           unknownProps: [],
+          functionProps: [],
         }
       };
 

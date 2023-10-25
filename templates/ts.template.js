@@ -19,7 +19,7 @@ function tsTemplate(componentName, props, styleType) {
 
   return {
     component: `import React from "react";
-${ styleImport }${ propsType }
+${ styleImport }${ hasProps ? propsType : "" }
 export default function ${ componentName }(${ hasProps ? declarationProps : "" }) {
   ${ hasProps ? firstLineProps : "" }return (
     <div>${ componentName }</div>

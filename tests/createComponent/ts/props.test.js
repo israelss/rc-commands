@@ -230,7 +230,9 @@ describe('<TestComponent/>', () => {
           functionProps: [
             "functionProp1:set(Rec<s, n>)",
             "functionProp2:set(b)?",
-            "functionProp3:(arg1:s)=>void"
+            "functionProp3:(arg1:s)=>void",
+            "functionProp4:(arg1:s, arg2:b)=>n",
+            "functionProp5:()=>b",
           ],
         }
       };
@@ -245,12 +247,16 @@ type TestComponentProps = {
   functionProp1: Dispatch<SetStateAction<Record<string, number>>>;
   functionProp2: Dispatch<SetStateAction<boolean>>;
   functionProp3: (arg1: string) => void;
+  functionProp4: (arg1: string, arg2: boolean) => number;
+  functionProp5: () => boolean;
 }
 
 export default function TestComponent({
   functionProp1,
   functionProp2,
   functionProp3,
+  functionProp4,
+  functionProp5,
 }: TestComponentProps) {
   return (
     <div>TestComponent</div>

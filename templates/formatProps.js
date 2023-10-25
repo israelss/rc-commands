@@ -161,7 +161,6 @@ type ${ propsTypeName } = {
 }
 ` : "";
     const matches = propsType.match(PROPS_TYPES_REGEX);
-    console.log({ matches });
     propsType = `
 ${
   matches

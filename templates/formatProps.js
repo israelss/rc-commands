@@ -38,6 +38,8 @@ function formatFunctionArgWithType(arg) {
  * @param {string} args
  */
 function formatFunctionArgs(args) {
+  if (!args) return "";
+
   const argsList = args.split(",");
 
   return argsList.map(formatFunctionArgWithType);
@@ -50,7 +52,7 @@ function formatFunctionType(prop) {
   const match = prop.match(FUNCTION_REGEX);
   const { args, returnType } = match.groups;
 
-  return `(${ formatFunctionArgs(args) }) => ${ returnType }`;
+  return `(${ formatFunctionArgs(args) }) => ${ TYPES_MAP.get(returnType) ?? returnType }`;
 }
 
 /**

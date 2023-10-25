@@ -25,6 +25,7 @@ const { jsTemplate, tsTemplate } = require("./templates");
  * @property {string[]} numberProps
  * @property {string[]} stringProps
  * @property {string[]} unknownProps
+ * @property {string[]} functionProps
  */
 
 /**

@@ -34,6 +34,7 @@ function createComponentCommand(commandName, description, aliases, extension) {
     .option("-n <numberProps...>", "Number props to include. Optional props should have a '?' at the end", [])
     .option("-s <stringProps...>", "String props to include. Optional props should have a '?' at the end", [])
     .option("-u <unknownProps...>", "Unknown props to include. Optional props should have a '?' at the end", [])
+    .option("-f <functionProps...>", "Function props to include. Optional props should have a '?' at the end", [])
     .action((componentPath, options) => {
       const styleType = options.less ? "less" : options.sass ? "sass" : "css";
       
@@ -49,6 +50,7 @@ function createComponentCommand(commandName, description, aliases, extension) {
           numberProps: options.n,
           stringProps: options.s,
           unknownProps: options.u,
+          functionProps: options.f
         }
       };
     

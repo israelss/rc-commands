@@ -6,8 +6,6 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch --runInBand",
-    "postinstall": "node ./terminal/postinstall.js",
-    "postuninstall": "node ./terminal/postuninstall.js",
     "eslint:fix": "eslint --fix ."
   },
   "bin": {

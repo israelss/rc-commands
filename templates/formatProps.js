@@ -92,6 +92,7 @@ function formatFunctionProps(props) {
   return props
     .map(prop => {
       const [propName, propType] = prop.split(/:(.*)/);
+      if (!propType) return propName;
       const formattedType = formatPropType(propType);
 
       return `${ propName }: ${ formattedType };`;

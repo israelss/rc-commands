@@ -6,7 +6,7 @@
 
 | Option            | Command                                      |
 |-------------------|----------------------------------------------|
-| Global (preffer)  | `npm install -g rc-commands`                 |
+| Global (prefer)  | `npm install -g rc-commands`                 |
 | Local             | `npm install rc-commands -D`                 |
 
 If installing locally, add the following to your `package.json`:
@@ -18,6 +18,41 @@ If installing locally, add the following to your `package.json`:
 ```
 
 Use `npm run` before the command (e.g., `npm run rc`) when using locally.
+
+If you are using zsh, to prevent errors with zsh when passing optional parameters, you have two options:
+
+1 - Prepend the command you will run with `noglob`
+Examples:
+```sh
+# When installing globally
+noglob rc
+
+# When installing locally and/or running with npx
+noglob npx rc
+
+# When installing locally and running with script in package.json
+noglob npm run rc
+```
+
+Or add the functions bellow to your `.zshrc`:
+
+```sh
+echo '
+# To use when installing globally
+function rc() {
+  command noglob rc
+}
+
+# To use when installing locally and/or running with npx
+function npx() {
+  case $* in
+    rc* ) shift 1; command noglob npx "$@" ;;
+    * ) command npx "$@" ;;
+  esac
+}
+' >> $HOME/.zshrc
+```
+Note that if you prefer the functions in `.zshrc`, when running rc with scripts you still have to prepend the command with `noglob`.
 
 ## How to use
 

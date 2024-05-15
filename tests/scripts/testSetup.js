@@ -1,14 +1,11 @@
 "use strict";
 
 const fs = require("fs");
-
 const kleur = require("kleur");
-
-console.log(kleur.bgRed().bold(" 🔥 Deleting test files and folders 🔥 "));
-
 const path = require("path");
 
-const directoryPath = path.join(__dirname, "../path");
+const DEFAULT_PATH = "tests/path";
+const COMPONENT_PATH = `${ DEFAULT_PATH }/testComponent`;
 
 function deleteFilesRecursive(directory) {
   if (fs.existsSync(directory)) {
@@ -26,4 +23,9 @@ function deleteFilesRecursive(directory) {
   }
 }
 
-deleteFilesRecursive(directoryPath);
+function deleteFiles()  {
+  console.log(kleur.bgRed().bold().white(" 🔥 Deleting test files and folders 🔥 "));
+  deleteFilesRecursive(DEFAULT_PATH); 
+}
+
+module.exports = { DEFAULT_PATH, COMPONENT_PATH, deleteFiles };

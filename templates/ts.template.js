@@ -1,12 +1,27 @@
 "use strict";
 
-function tsTemplate(componentName, styleType) {
+const { formatProps } = require("./formatProps");
+const { formatStyleImport } = require("./formatStyleImport");
+
+/**
+ * @param {string} componentName
+ * @param {import('../createComponent').ComponentPropsOptions} props
+ * @param {import('../createComponent').StyleType | false} styleType
+ */
+function tsTemplate(componentName, props, styleType) {
+  const {
+    declarationProps,
+    firstLineProps,
+    hasProps,
+    propsType
+  } = formatProps(componentName, props, "ts");
+  const styleImport = formatStyleImport(componentName, styleType);
+
   return {
     component: `import React from "react";
-import "./${ componentName }.${ styleType }";
-
-export default function ${ componentName }() {
-  return (
+${ styleImport }${ hasProps ? propsType : "" }
+export default function ${ componentName }(${ hasProps ? declarationProps : "" }) {
+  ${ hasProps ? firstLineProps : "" }return (
     <div>${ componentName }</div>
   );
 }`,
@@ -14,10 +29,12 @@ export default function ${ componentName }() {
 import { render } from "@testing-library/react";
 import ${ componentName } from "./${ componentName }";
 
-test("checks if the div with text ${ componentName } is present", () => {
-  const { getByText } = render(<${ componentName } />);
-  const divElement = getByText(/${ componentName }/i);
-  expect(divElement).toBeInTheDocument();
+describe('<${ componentName }/>', () => {
+  it("should render a div with text '${ componentName }'", () => {
+    const { getByText } = render(<${ componentName } />);
+    const divElement = getByText(/${ componentName }/i);
+    expect(divElement).toBeInTheDocument();
+  });
 });`
   };
 }
